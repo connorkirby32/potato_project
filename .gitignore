@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+npm-debug.log
+
+# OSX
+.DS_Store
+
+# SASS
+/.sass-cache/
+
+/.storage/
+/node_modules/
+/sitepackages/
+/tracker/static-dev/components/

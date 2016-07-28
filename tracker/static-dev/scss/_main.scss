@@ -1,0 +1,19 @@
+.row {
+	&.row--full-width {
+		max-width: 100%;
+
+		>div:first-child,
+		>div:last-child {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.row {
+			margin: 0;
+		}
+	}
+}
+
+.content {
+	margin-top: 1rem;
+}

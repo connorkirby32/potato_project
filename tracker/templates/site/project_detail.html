@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="large-12 large-centered columns">
+	<div class="row">
+		<h2>{{ project.title }} <small><a href="{% url "project-update" project_id=project.pk %}">edit</a></small></h2>
+	</div>
+	<div class="row">
+		<table>
+			<thead>
+				<tr>
+					<th width="1200">Title</th>
+					<th width="1200">Assigned</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for ticket in tickets %}
+				<tr>
+					<td>{{ ticket.title }}</td>
+					<td>
+					{% for user in ticket.assignees.all %}
+						{{ user.email }}{% if not forloop.last %},{% endif %}
+					{% endfor %}
+					</td>
+					<td>
+						<a href="{% url "ticket-update" project_id=project.pk ticket_id=ticket.pk %}">
+							<i class="fi-pencil">
+
+							</i>
+						</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<p><a href="{% url "ticket-create" project_id=project.pk %}" class="button">Create ticket</a></p>
+	</div>
+</div>
+{% endblock %}

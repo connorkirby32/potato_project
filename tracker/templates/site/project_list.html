@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="large-12 large-centered columns">
+	<div class="row">
+		<table>
+			<thead>
+				<tr>
+					<th width="1200">Project title</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for project in object_list %}
+				<tr>
+					<td><a href="{% url "project-detail" project_id=project.pk %}">{{ project.title }}</a></td>
+					<td>
+						<a href="{% url "project-update" project_id=project.pk %}">
+							<i class="fi-pencil"></i>
+						</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<p><a href="{% url "project-create" %}" class="button">Create project</a></p>
+	</div>
+</div>
+{% endblock %}

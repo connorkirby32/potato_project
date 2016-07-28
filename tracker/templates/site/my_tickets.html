@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+	<div class="large-12 columns">
+		<div class="row">
+			<div class="row">
+			{% for ticket in tickets %}
+				<div class="large-3 medium-6 small-12 columns{% if forloop.last %} end{% endif %}">
+					<div class="panel">
+						<h5><a href="{% url "ticket-update" project_id=ticket.project_id ticket_id=ticket.pk %}">{{ ticket.project.title }}: {{ ticket.title }}</a></h5>
+						<hr>
+						<p>{{ ticket.description }}</p>
+						<small>Last updated: {{ ticket.modified }}</small>
+					</div>
+				</div>
+			{% empty %}
+				<div class="panel callout">
+				<h4>You are not assigned to any tickets</h4>
+				<p>
+					Either <a href="{% url "project-list" %}">select a project</a> or <a href="{% url "project-create" %}">create a new project</a>.
+				</p>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

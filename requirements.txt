@@ -1,0 +1,10 @@
+djangae==0.9.4
+django>=1.8,<1.10
+django-secure
+django-csp
+git+https://github.com/adamalton/django-csp-reports.git#egg=cspreports
+django-session-csrf
+nose
+six
+django-extensions
+crispy-forms-foundation

@@ -1,0 +1,46 @@
+application: potato-tracker
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+
+- url: /_ah/(mapreduce|queue|warmup).*
+  script: tracker.wsgi.application
+  login: admin
+  secure: always
+
+- url: /static/admin/
+  static_dir: sitepackages/django/contrib/admin/static/admin/
+  secure: always
+
+# Production static media
+- url: /static
+  static_dir: tracker/static
+
+# Development static media
+- url: /static-dev
+  static_dir: tracker/static-dev
+
+# Set Django admin to be login:admin as well as Django's is_staff restriction
+- url: /admin.*
+  script: tracker.wsgi.application
+  secure: always
+  login: admin
+
+- url: /.*
+  script: tracker.wsgi.application
+  secure: always
+
+skip_files:
+    - manage.py
+    - README.md
+    - install_deps
+    - requirements.txt
+    - sitepackages/google_appengine*
+    - \.storage.*
+    - (.*)\.pyc
+    - node_modules*
+    - tracker\/static-dev*
+    - .git*
