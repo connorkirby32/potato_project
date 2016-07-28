@@ -46,8 +46,7 @@ my_tickets_view = MyTicketsView.as_view()
 class ProjectListView(ListView):
     model = Project
     template_name = "site/project_list.html"
-
-
+    
 project_list_view = ProjectListView.as_view()
 
 
@@ -131,6 +130,9 @@ class UpdateTicketView(ProjectContextMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("project-detail", kwargs={"project_id": self.kwargs['project_id']})
+
+    def get_object(self):
+        return Ticket.objects.get(pk=self.kwargs['ticket_id'], project = self.kwargs['project_id']) 
 
     def get_form_kwargs(self):
         kwargs = super(UpdateTicketView, self).get_form_kwargs()
