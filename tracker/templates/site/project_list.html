@@ -6,7 +6,8 @@
 		<table>
 			<thead>
 				<tr>
-					<th width="1200">Project title</th>
+					<th width="1000">Project title</th>
+					<th></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -17,8 +18,8 @@
 					<td>
 						<a href="{% url "project-update" project_id=project.pk %}">
 							<i class="fi-pencil"></i>
-						</a>
 					</td>
+					<td>{{project.tickets.count}}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
