@@ -6,6 +6,7 @@
 		<h2>{{ project.title }} <small><a href="{% url "project-update" project_id=project.pk %}">edit</a></small></h2>
 	</div>
 	<div class="row">
+	{% if tickets %}
 		<table>
 			<thead>
 				<tr>
@@ -19,10 +20,13 @@
 				<tr>
 					<td>{{ ticket.title }}</td>
 					<td>
-					{% for user in ticket.assignees.all %}
-						{{ user.email }}{% if not forloop.last %},{% endif %}
-					{% endfor %}
-					</td>
+					{%if ticket.assignees%}
+						{% for user in ticket.assignees.all %}
+							{{ user.email }}{% if not forloop.last %},{% endif %}
+						{% endfor %}
+					{%else%}
+					  No Assigned Users
+					{%endif%}
 					<td>
 						<a href="{% url "ticket-update" project_id=project.pk ticket_id=ticket.pk %}">
 							<i class="fi-pencil">
@@ -32,6 +36,9 @@
 					</td>
 				</tr>
 				{% endfor %}
+			{% else %}
+				<p>No Tickets</p>
+			{%endif%}
 			</tbody>
 		</table>
 	</div>
