@@ -93,12 +93,13 @@ SECURE_CHECKS = [
     "tracker.checks.check_session_csrf_enabled",
     "tracker.checks.check_csp_is_not_report_only"
 ]
-
+'''
 CSP_REPORT_URI = reverse_lazy('report_csp')
 CSP_REPORTS_LOG = True
 CSP_REPORTS_LOG_LEVEL = 'warning'
 CSP_REPORTS_SAVE = True
 CSP_REPORTS_EMAIL_ADMINS = False
+'''
 
 ROOT_URLCONF = 'tracker.urls'
 
@@ -137,7 +138,9 @@ if DEBUG:
     CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
     CSP_IMG_SRC += ("*.placehold.it",)
 
+#TODO Connor: Look into crispy settnigs for template packs
 CRISPY_TEMPLATE_PACK = 'foundation-5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'foundation-5')
 
 AUTH_USER_MODEL = 'djangae.GaeUser'
 
