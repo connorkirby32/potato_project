@@ -40,3 +40,9 @@ gulp.task('copy-js', function () {
 
 gulp.task('build', ['build-styles', 'copy-styles', 'copy-js', 'concat-js'])
 gulp.task('default', ['build-styles']);
+
+
+//Watch task
+gulp.task('default',function() {
+    gulp.watch(baseSrcDir + '/scss/*.scss',['sass']);
+});
