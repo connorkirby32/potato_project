@@ -94,6 +94,8 @@ SECURE_CHECKS = [
     "tracker.checks.check_csp_is_not_report_only"
 ]
 '''
+https://github.com/mozilla/django-csp/issues/67
+
 CSP_REPORT_URI = reverse_lazy('report_csp')
 CSP_REPORTS_LOG = True
 CSP_REPORTS_LOG_LEVEL = 'warning'

@@ -1,8 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, CreateView, UpdateView, ListView
-
+from django.views.generic import TemplateView, CreateView, UpdateView, ListView, DeleteView
+from django.db.models import Count
 from .forms import ProjectForm, TicketForm
 from .models import Project, Ticket
 
@@ -43,10 +43,28 @@ class MyTicketsView(TemplateView):
 my_tickets_view = MyTicketsView.as_view()
 
 
-class ProjectListView(ListView):
-    model = Project
+class ProjectListView(TemplateView):
     template_name = "site/project_list.html"
-    
+
+    def get_context_data(self):
+        if self.request.user.is_authenticated():
+            tickets = Ticket.objects.filter(assignees=self.request.user.pk)
+            projects_w_tickets = []
+            for ticket in tickets:
+                projects_w_tickets.append(ticket.project.pk)
+
+            projects_with_tickets = Project.objects.filter(pk__in= projects_w_tickets)
+            projects = Project.objects.exclude(pk__in= projects_w_tickets)
+
+        else:
+            projects_with_tickets = []
+            projects = []
+
+        return {
+            'projects': projects,
+            'projects_with_tickets': projects_with_tickets
+        }
+
 project_list_view = ProjectListView.as_view()
 
 
@@ -132,7 +150,7 @@ class UpdateTicketView(ProjectContextMixin, UpdateView):
         return reverse("project-detail", kwargs={"project_id": self.kwargs['project_id']})
 
     def get_object(self):
-        return Ticket.objects.get(pk=self.kwargs['ticket_id'], project = self.kwargs['project_id']) 
+        return get_object_or_404(Ticket,pk=self.kwargs['ticket_id'], project = self.kwargs['project_id']) 
 
     def get_form_kwargs(self):
         kwargs = super(UpdateTicketView, self).get_form_kwargs()
@@ -143,3 +161,24 @@ class UpdateTicketView(ProjectContextMixin, UpdateView):
 
 
 update_ticket_view = login_required(UpdateTicketView.as_view())
+
+
+
+class DeleteTicketView( DeleteView):
+    model = Ticket
+    pk_url_kwarg = 'ticket_id'
+
+    def get_success_url(self):
+        return reverse("project-detail", kwargs={"project_id": self.kwargs['project_id']})
+
+    def get_object(self):
+        return get_object_or_404(Ticket,pk=self.kwargs['ticket_id'], project = self.kwargs['project_id']) 
+
+    def get_form_kwargs(self):
+        kwargs = super(UpdateTicketView, self).get_form_kwargs()
+        kwargs['project'] = self.get_project()
+        kwargs['user'] = self.request.user
+        kwargs['title'] = "Edit {0}".format(self.object.title)
+        return kwargs
+
+delete_ticket_view = login_required(DeleteTicketView.as_view())

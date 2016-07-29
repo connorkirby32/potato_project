@@ -12,8 +12,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for project in object_list %}
+				
 				<tr>
+				  {% for project in projects_with_tickets%}
+					<td><a href="{% url "project-detail" project_id=project.pk %}">{{ project.title }}</a></td>
+					<td>
+						<a href="{% url "project-update" project_id=project.pk %}">
+							<i class="fi-pencil"></i>
+					</td>
+					<td>{{project.tickets.count}}</td>
+				</tr>
+				{% endfor %}
+			  {% for project in projects%}
 					<td><a href="{% url "project-detail" project_id=project.pk %}">{{ project.title }}</a></td>
 					<td>
 						<a href="{% url "project-update" project_id=project.pk %}">
