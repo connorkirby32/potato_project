@@ -10,6 +10,7 @@
 					<div class="panel">
 						<h5><a href="{% url "ticket-update" project_id=ticket.project_id ticket_id=ticket.pk %}">{{ ticket.project.title }}: {{ ticket.title }}</a></h5>
 						<hr>
+						<!-- Limit text description of tickets-->
 						<p>{{ ticket.description|truncatechars:16 }}</p>
 						<small>Last updated: {{ ticket.modified }}</small>
 					</div>

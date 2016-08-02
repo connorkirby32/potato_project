@@ -13,13 +13,16 @@
 					<th width="1200">Title</th>
 					<th width="1200">Assigned</th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
+				<!-- FEATURE: Check if project has tickets -->
 				{% for ticket in tickets %}
 				<tr>
 					<td>{{ ticket.title }}</td>
 					<td>
+					<!-- FEATURE: Check if users are assigned to the ticket-->
 					{%if ticket.assignees%}
 						{% for user in ticket.assignees.all %}
 							{{ user.email }}{% if not forloop.last %},{% endif %}
@@ -27,14 +30,22 @@
 					{%else%}
 					  No Assigned Users
 					{%endif%}
+					</td>
 					<td>
 						<a href="{% url "ticket-update" project_id=project.pk ticket_id=ticket.pk %}">
 							<i class="fi-pencil">
-
+							</i>
+						</a>
+					</td>
+					<td>
+					<!-- FEATURE: Add delete -->
+						<a href="{% url "ticket-delete" project_id=project.pk ticket_id=ticket.pk %}">
+							<i class="fi-page-delete">
 							</i>
 						</a>
 					</td>
 				</tr>
+				</tbody>
 				{% endfor %}
 			{% else %}
 				<p>No Tickets</p>

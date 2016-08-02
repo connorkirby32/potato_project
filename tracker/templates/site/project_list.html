@@ -9,11 +9,13 @@
 					<th width="1000">Project title</th>
 					<th></th>
 					<th></th>
+	
 				</tr>
 			</thead>
 			<tbody>
 				
 				<tr>
+				<!-- FEATURE: The context data has been changed to have two lists, one where the user has projects with tickets, and the oppisite-->
 				  {% for project in projects_with_tickets%}
 					<td><a href="{% url "project-detail" project_id=project.pk %}">{{ project.title }}</a></td>
 					<td>
@@ -29,6 +31,7 @@
 						<a href="{% url "project-update" project_id=project.pk %}">
 							<i class="fi-pencil"></i>
 					</td>
+					<!-- FEATURE: User the reverse relationship to counter the nubmer of tickets that have the project as a foriegn key-->
 					<td>{{project.tickets.count}}</td>
 				</tr>
 				{% endfor %}

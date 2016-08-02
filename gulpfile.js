@@ -42,7 +42,7 @@ gulp.task('build', ['build-styles', 'copy-styles', 'copy-js', 'concat-js'])
 gulp.task('default', ['build-styles']);
 
 
-//Watch task
+//FEATURE: Watch task for SASS
 gulp.task('default',function() {
     gulp.watch(baseSrcDir + '/scss/*.scss',['sass']);
 });

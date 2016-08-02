@@ -93,8 +93,10 @@ SECURE_CHECKS = [
     "tracker.checks.check_session_csrf_enabled",
     "tracker.checks.check_csp_is_not_report_only"
 ]
+
+# Notice a recent error, fix this
 '''
-https://github.com/mozilla/django-csp/issues/67
+https://github.com/potatolondon/djangae-scaffold/issues/95
 
 CSP_REPORT_URI = reverse_lazy('report_csp')
 CSP_REPORTS_LOG = True
@@ -142,6 +144,7 @@ if DEBUG:
 
 #TODO Connor: Look into crispy settnigs for template packs
 CRISPY_TEMPLATE_PACK = 'foundation-5'
+#BUG: Added allowed templates packs for crispy foundation forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'foundation-5')
 
 AUTH_USER_MODEL = 'djangae.GaeUser'

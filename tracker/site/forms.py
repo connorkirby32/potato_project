@@ -45,7 +45,7 @@ class UserModelMultipleChoiceField(forms.ModelMultipleChoiceField):
          return obj.email
 
 class TicketForm(BaseTrackerForm):
-    assignees = UserModelMultipleChoiceField(queryset=get_user_model().objects.all(), required=False)
+    assignees = UserModelMultipleChoiceField(queryset=get_user_model().objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Ticket

@@ -21,18 +21,14 @@ The application is written using the [Djangae](http://djangae.readthedocs.org/en
 
 ## Tasks - bugs
 
-- Internal server error occurs when any form is rendered
-- Update a ticket - an internal server error occurs
-- It is possible to move a ticket from one project to another by altering the URL on the edit ticket page. This should not be allowed
+
 - Tickets with long descriptions break the layout
 
 ## Tasks - new features
 
-- On the ticket list page if there are no tickets show "No tickets have been created for this project"
-- On the ticket list page if there are no users assigned to a ticket show "No assigned users" in the "assigned" field
-- On the project list page, add a new column showing the count of how many tickets there are in each project
+
 - On the project list page, projects that the user has assigned tickets on should be shown above the other projects
-- In the edit ticket page show only the email address of each user in the "Assignees" input
+
 - Add the ability to delete tickets
 - Improve the multiselect for assignees on the edit ticket page. Consider using a library such as [Chosen](http://harvesthq.github.io/chosen/) to help with this
 - Add a watch task to the default gulp task so that changes to any of the SCSS files result in the CSS files being updated

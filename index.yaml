@@ -43,6 +43,13 @@ indexes:
 
 - kind: site_ticket
   properties:
+  - name: modified
+    direction: desc
+  - name: created
+    direction: desc
+
+- kind: site_ticket
+  properties:
   - name: project_id
   - name: modified
     direction: desc

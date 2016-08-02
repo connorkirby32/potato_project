@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{{ form.media }}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -7,4 +8,5 @@
 		{% crispy form form.helper %}
 	</form>
 </div>
+
 {% endblock %}

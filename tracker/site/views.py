@@ -12,7 +12,8 @@ class ProjectContextMixin(object):
 
     def get_project(self):
         if not self.project:
-            self.project = get_object_or_404(Project, pk=self.kwargs['project_id'])
+            self.project = get_object_or_404(
+                Project, pk=self.kwargs['project_id'])
 
         return self.project
 
@@ -53,8 +54,9 @@ class ProjectListView(TemplateView):
             for ticket in tickets:
                 projects_w_tickets.append(ticket.project.pk)
 
-            projects_with_tickets = Project.objects.filter(pk__in= projects_w_tickets)
-            projects = Project.objects.exclude(pk__in= projects_w_tickets)
+            projects_with_tickets = Project.objects.filter(
+                pk__in=projects_w_tickets)
+            projects = Project.objects.exclude(pk__in=projects_w_tickets)
 
         else:
             projects_with_tickets = []
@@ -148,9 +150,9 @@ class UpdateTicketView(ProjectContextMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("project-detail", kwargs={"project_id": self.kwargs['project_id']})
-
+    # BUG: In the querey, check that the project matches the one in the ticket model
     def get_object(self):
-        return get_object_or_404(Ticket,pk=self.kwargs['ticket_id'], project = self.kwargs['project_id']) 
+        return get_object_or_404(Ticket, pk=self.kwargs['ticket_id'], project=self.kwargs['project_id'])
 
     def get_form_kwargs(self):
         kwargs = super(UpdateTicketView, self).get_form_kwargs()
@@ -163,8 +165,7 @@ class UpdateTicketView(ProjectContextMixin, UpdateView):
 update_ticket_view = login_required(UpdateTicketView.as_view())
 
 
-
-class DeleteTicketView( DeleteView):
+class DeleteTicketView(DeleteView):
     model = Ticket
     pk_url_kwarg = 'ticket_id'
 
@@ -172,7 +173,7 @@ class DeleteTicketView( DeleteView):
         return reverse("project-detail", kwargs={"project_id": self.kwargs['project_id']})
 
     def get_object(self):
-        return get_object_or_404(Ticket,pk=self.kwargs['ticket_id'], project = self.kwargs['project_id']) 
+        return get_object_or_404(Ticket, pk=self.kwargs['ticket_id'], project=self.kwargs['project_id'])
 
     def get_form_kwargs(self):
         kwargs = super(UpdateTicketView, self).get_form_kwargs()
